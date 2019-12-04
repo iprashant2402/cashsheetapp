@@ -1,0 +1,44 @@
+<mat-toolbar color="primary">
+  <span>Home</span>
+  <span class="fill-space"></span>
+  <button class="outline-btn" (click)="logout()">Logout</button>
+</mat-toolbar>
+<div class="flex-container-2">
+    <div class="flex-container">    <p>*If a previous day cash sheet exists, opening balance will be fetched automatically.</p>
+</div>
+    <form class="flex-container" *ngIf="auth.isAdmin()" [formGroup]="newSheetForm" (ngSubmit)="onSubmit(newSheetForm.value)">
+    <div class="form-container">
+        <div class="ctm-input-wrapper"><label>Opening Balance:</label><input class="ctm-input" type="number" formControlName="openingBal"/></div>
+        <div class="ctm-input-wrapper"><label>Select date:</label><input class="ctm-input" type="date" formControlName="date" /></div>
+        <div class="ctm-input-wrapper"><button class="btn" type="submit">Create New Sheet</button></div>
+    </div>
+</form>
+</div>
+<div class="flex-container">
+  <div class="table-container">
+    <table>
+      <tr>
+        <th>View Sheet</th>
+        <th>Date</th>
+        <th>Active</th>
+        <th>Opening Balance</th>
+        <th>Closing Balance</th>
+        <th>Summation</th>
+        <th>Difference</th>
+        <th>Deposited</th>
+        <th>Verified</th>
+      </tr>
+      <tr *ngFor="let sheet of sheets">
+        <td><a [routerLink]="['/sheetDetails', sheet.cid]">View</a></td>
+        <td>{{ sheet.date }}</td>
+        <td>{{ sheet.active ? "Active" : "Closed" }}</td>
+        <td>{{ sheet.opening }}</td>
+        <td>{{ sheet.closing }}</td>
+        <td>{{ sheet.summation }}</td>
+        <td>{{ sheet.difference }}</td>
+        <td>{{ sheet.deposited ? "Yes" : "No" }}</td>
+        <td>{{ sheet.verified ? "Verified" : "Not Verified" }}</td>
+      </tr>
+    </table>
+  </div>
+</div>

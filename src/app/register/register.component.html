@@ -1,0 +1,37 @@
+<div class="loginFormContainer">
+    <img src="../../assets/logo.png" width="129px" />
+  </div>
+  
+  <div class="loginFormContainer">
+  <h3>Register</h3>
+  </div>
+  
+
+<div class="loginFormContainer">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
+        <div class="input-wrapper">
+            <input id="name" class="mt-input" placeholder="Name" type="text" formControlName="name">
+          </div>
+        
+          <div class="input-wrapper">
+            <input id="email" class="mt-input" placeholder="E-mail" type="text" formControlName="email">
+          </div>
+
+          <div class="input-wrapper">
+            <input id="pass" class="mt-input" placeholder="Password" type="password" formControlName="password">
+          </div>
+
+          <div class="input-wrapper">
+            <label for="address">
+              User Type
+            </label>
+            <input type="radio" value=true formControlName="userType" >Admin
+            <input type="radio" value=false formControlName="userType">Basic
+          </div>
+        
+          <div class="input-wrapper"><button class="btn" type="submit">Sign Up</button></div>
+          <div class="input-wrapper">Already a user? <a [routerLink]="['/login']">Sign In</a></div>
+        
+    </form>
+</div>
+

@@ -1,0 +1,27 @@
+.input-wrapper{
+    margin: 8px;
+    padding: 8px;
+}
+
+.mt-input{
+    height: 20px;
+    padding: 8px;
+    border: none;
+    border-bottom: 1px solid #4040bf;
+    
+}
+
+.loginFormContainer{
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+}
+
+.btn{
+    height: 30px;
+    padding: 8px;
+    width: 100%;
+    border: none;
+    background-color: #4040bf;
+    color: white;
+}

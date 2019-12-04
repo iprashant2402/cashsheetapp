@@ -1,0 +1,169 @@
+<mat-toolbar color="primary">
+  <span>Cash Sheet Detail</span>
+</mat-toolbar>
+<div class="flex-container">
+  <mat-card class="card">
+    <mat-card-title>Date</mat-card-title>
+    <mat-card-subtitle>{{ parseDate(sheet.date) }}</mat-card-subtitle>
+  </mat-card>
+  <mat-card class="card">
+    <mat-card-title>Opening Balance</mat-card-title>
+    <mat-card-subtitle>{{ sheet.opening }}</mat-card-subtitle>
+  </mat-card>
+  <mat-card class="card">
+    <mat-card-title>Closing Balance</mat-card-title>
+    <mat-card-subtitle *ngIf="!sheet.active">{{
+      sheet.closing
+    }}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="sheet.active">N/A</mat-card-subtitle>
+  </mat-card>
+</div>
+<div class="flex-container">
+  <mat-card class="card">
+    <mat-card-title>Summation</mat-card-title>
+    <mat-card-subtitle *ngIf="!sheet.active">{{
+      sheet.summation
+    }}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="sheet.active">N/A</mat-card-subtitle>
+  </mat-card>
+  <mat-card class="card">
+    <mat-card-title>Difference</mat-card-title>
+    <mat-card-subtitle *ngIf="!sheet.active">{{
+      sheet.difference
+    }}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="sheet.active">N/A</mat-card-subtitle>
+  </mat-card>
+  <mat-card class="card">
+    <mat-card-title>Status</mat-card-title>
+    <mat-card-subtitle *ngIf="!sheet.deposited"
+      >Not yet deposited.</mat-card-subtitle
+    >
+    <mat-card-subtitle *ngIf="sheet.deposited"
+      >Cash Sheet has been deposited.</mat-card-subtitle
+    >
+  </mat-card>
+</div>
+<div class="flex-container">
+  <div class="table-container">
+    <table>
+      <tr>
+        <th *ngIf="auth.isAdmin()"></th>
+        <th>Reference No.</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Transaction Type</th>
+        <th>Transaction Mode</th>
+        <th>Verified</th>
+        <th *ngIf="auth.isAdmin()"></th>
+      </tr>
+      <tr *ngFor="let tran of transactions">
+        <td *ngIf="auth.isAdmin()">
+          <button class="list-btn" (click)="verifyTransaction(tran.refNo)">
+            Verify
+          </button>
+        </td>
+        <td>{{ tran.refNo }}</td>
+        <td>{{ tran.description }}</td>
+        <td>INR {{ tran.amount }}</td>
+        <td>{{ tran.transactionType }}</td>
+        <td>{{ tran.mode ? "Cash" : "Bank" }}</td>
+        <td>{{ tran.verified ? "Verified" : "Not Verified" }}</td>
+        <td *ngIf="auth.isAdmin()">
+          <button class="delete-btn" (click)="deleteTransaction(tran.refNo)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="flex-container">
+    <form
+      class="flex-container-2"
+      [formGroup]="addTranForm"
+      *ngIf="sheet.active || auth.isAdmin()"
+      (ngSubmit)="addTransaction(addTranForm.value)"
+    >
+    <h3>Add transaction:</h3>
+    <div class="form-container">
+      <div class="input-wrapper">
+        <input
+          type="text"
+          placeholder="Enter transaction description"
+          formControlName="description"
+        />
+      </div>
+      <div class="input-wrapper">
+        <input
+          type="text"
+          placeholder="Enter amount"
+          formControlName="amount"
+        />
+      </div>
+      <div class="input-wrapper">
+        <select formControlName="type">
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+          <option value="refund">Refund</option>
+        </select>
+      </div>
+      <div class="input-wrapper">
+        <select formControlName="mode">
+          <option value="true">Cash</option>
+          <option value="false">Bank</option>
+        </select>
+      </div>
+      <div class="input-wrapper">
+        <button class="list-btn">
+          Add
+        </button>
+      </div>
+    </div>
+    </form>
+</div>
+<div class="flex-container">
+        <form
+          class="flex-container-2"
+          [formGroup]="closeSheetForm"
+          *ngIf="sheet.active"
+          (ngSubmit)="closeSheet(closeSheetForm.value)"
+        >
+        <h3>Enter Note Count:</h3>
+        <div class="form-container">
+          <div class="input-wrapper">
+            <label>INR 50 X</label>
+            <input
+              type="number"
+              formControlName="fifty"
+            />
+          </div>
+          <div class="input-wrapper">
+                <label>INR 100 X</label>
+            <input
+              type="number"
+              formControlName="hundred"
+            />
+          </div>
+          <div class="input-wrapper">
+                <label>INR 500 X</label>
+                <input
+                  type="number"
+                  formControlName="fiveHundred"
+                />
+          </div>
+          <div class="input-wrapper">
+                <label>INR 2000 X</label>
+                <input
+                  type="number"
+                  formControlName="twoThousand"
+                />
+          </div>
+          <div class="input-wrapper">
+            <button class="list-btn">
+              Close Cash Sheet
+            </button>
+          </div>
+        </div>
+        </form>
+    </div>
+    

@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "cashsheetApp",
+      "public": "dist/cashsheetApp",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

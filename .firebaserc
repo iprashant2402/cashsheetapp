@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "virestore-landpage": {
+      "hosting": {
+        "cashsheetApp": [
+          "virestore-landpage"
+        ]
+      }
+    }
+  }
+}

@@ -64,7 +64,7 @@ export class HomeViewComponent implements OnInit {
     var year = Number(date[0]);
     var month = Number(date[1]);
     var day = Number(date[2]);
-    sheetDate.setDate(day);
+    sheetDate.setDate(day+1);
     sheetDate.setMonth(month-1);
     sheetDate.setFullYear(year);
     console.log(sheetDate);
